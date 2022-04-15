@@ -1,5 +1,5 @@
 # promotelms_restapi_python
-REST API Operations in Python for PROMOTE LMS
+REST API Operations in Python for PROMOTE LMS (https://promoteint.com/not-an-lms/)
 
 Files
 ------
