@@ -12,6 +12,7 @@ from botocore.errorfactory import ClientError
 from io import StringIO
 
 s3 = boto3.resource('s3')
+client = boto3.client('ssm')
 
 s3_object = s3.Bucket('S3 BUCKET NAME').Object('FILENAME.json').get()
 file_content = s3_object['Body'].read().decode()
@@ -20,7 +21,8 @@ file_content = s3_object['Body'].read().decode()
 json_content = json.loads(file_content)
 access_token = json_content['access_token']
 
-promote_server = "PROMOTE SERVER"
+client_id = (client.get_parameter(Name="PROMOTE SERVER", WithDecryption= True))['Parameter']['Value']
+promote_server = "https://"+client_id+".promoteapp.net"
 
 headers = {
     'Authorization': f"Bearer {access_token}",
