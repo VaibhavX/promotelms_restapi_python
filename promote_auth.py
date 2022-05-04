@@ -8,12 +8,13 @@ import boto3
 from botocore.errorfactory import ClientError
 
 s3 = boto3.client('s3')
+client=boto3.client('ssm')
 
-auth_server = "PROMOTE_SERVER"
-grant_type="GRANT_TYPE"
-client_id = "CLIENT_ID"
-username = "USERNAME"
-password = "PASS"
+auth_server = (client.get_parameter(Name="PROMOTE_SERVER", WithDecryption=True))['Parameter']['Value']
+grant_type=(client.get_parameter(Name="GRANT_TYPE", WithDecryption= True))['Parameter']['Value']
+client_id = (client.get_parameter(Name="CLIENT_ID", WithDecryption=True))['Parameter']['Value']
+username = (client.get_parameter(Name="USERNAME", WithDecryption=True))['Parameter']['Value']
+password = (client.get_parameter(Name="PASS", WithDecryption=True))['Parameter']['Value']
 
 files = {
     'grant_type': (None, grant_type),
